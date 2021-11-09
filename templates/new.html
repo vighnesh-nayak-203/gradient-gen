@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href={{ url_for( 'static',filename="style/index.css" ) }}>
+</head>
+<body id="body">
+    <div class="form">
+        <form action="/" method="post" class="mform">
+            <input type="text" placeholder="hexvalue" id="t" name="hex" value="{{ request.form['hex'] }}">
+            <input type="submit" value="Submit" id="s">
+        </form>
+        <div class="type">
+            <span>
+                <input type="radio" class="radio" name="type" id="1" value="1"><label id="x" for="1">Generic Gradient</label>
+            </span>
+            <span>
+                <input type="radio" class="radio" name="type" id="2" value="2"><label id="y" for="2">Matching Gradient</label>
+            </span>
+
+        </div>   
+    </div>
+    <div class="svg">    
+        <img src={{ url_for("static",filename="img/space_moon.svg") }} alt="svg-moon">
+        <img src={{ url_for("static",filename="img/astronaut.svg") }} alt="astro">
+        
+    </div>
+    <script>
+        const sel_btn1=document.getElementById(1);
+        const sel_btn2=document.getElementById(2);
+        const type=document.querySelector(".type");
+        const body=document.getElementById("body");
+        {% if s==None %}
+            type.style.display="None";
+            body.style.backgroundImage="linear-gradient(to right top, rgb(132, 94, 242), rgb(242, 75, 201), rgb(255, 93, 149), rgb(255, 145, 105), rgb(255, 199, 86), rgb(249, 248, 113))";
+        {% else %}
+        sel_btn1.checked=true;
+        body.style.backgroundImage="{{ s[0] }}";
+        {% endif %}
+        sel_btn1.onclick = function(){
+            body.style.backgroundImage="{{ s[0] }}";
+        }
+        sel_btn2.onclick = function(){
+            body.style.backgroundImage="{{ s[1] }}";
+        }
+    </script>
+</body>
+</html>
