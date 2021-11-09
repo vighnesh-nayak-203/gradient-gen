@@ -1,1 +1,1 @@
-web: gunicorn webttt:app
+web: gunicorn polysum:app
